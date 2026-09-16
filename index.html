@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sketch</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <script src="libraries/p5.min.js"></script>
+    <script src="libraries/p5.sound.min.js"></script>
+    <script src="pathhelper.js"></script>
+  </head>
+
+  <body>
+      <div id="ui">
+    <label>Font file (edit path in JS): <code id="fontPath">assets/MyFont.ttf</code></label>
+    <label>String: <input id="textInput" value="ZHDK" style="width:120px"></label>
+    <label>Font size: <span id="fsVal">300</span>
+      <input id="fontSize" type="range" min="60" max="900" step="10" value="300">
+    </label>
+    <label>Sampling step (t step for curves): <span id="stepVal">0.02</span>
+      <input id="sampleStep" type="range" min="0.005" max="0.06" step="0.005" value="0.02">
+    </label>
+    <label>Points per line (linear interpolation subdivisions): <span id="lineSub">1</span>
+      <input id="lineSubIn" type="range" min="1" max="20" step="1" value="1">
+    </label>
+    <label>Raster: <span id="raster">1</span>
+      <input id="rasterIn" type="range" min="1" max="20" step="1" value="1">
+    </label>    
+    <div class="note">
+      Toggle outline / points: press <strong>O</strong>
+    </div>
+    <button id="regenBtn">Regenerate points</button>
+    <div class="note">Contours: <span id="contCount">0</span> — Total points: <span id="ptCount">0</span></div>
+  </div>
+
+    <script src="sketch.js"></script>
+  </body>
+</html>
