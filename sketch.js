@@ -71,19 +71,18 @@ function draw(){
 
   // draw bounding box for visual ease
 
-  const text = select('#textInput').value() || 'ZHDK';
+  const txt = select('#textInput').value() || 'ZHDK';
   const margin = 60;  
   const x = margin;
   const y = height / 2 + fontSize / 3;
 
   // Draw outlines (original vector)
-  const path = otFont.getPath(text, x, y, fontSize);
+  const path = otFont.getPath(txt, x, y, fontSize);
 
   if (showOutlines){
     noFill();
     stroke(90, 180, 255, 180);
     strokeWeight(1.5);
-    beginShape();
     // We can't directly feed opentype commands into beginShape with bezierVertex easily across contours,
     // so reconstruct by iterating the path again and using vertex / bezierVertex.
     // Use otFont.getPath to get commands positioned as in regen
@@ -106,7 +105,12 @@ function draw(){
   }
 
   points = sampleOpentypePath(path, sampleStep, sampleLineSub)
-  // draw sampled points, color by contour
+  // update the counters in index.html (each point knows its contour index)
+  const contourCount = points.length > 0 ? points[points.length - 1].contour + 1 : 0;
+  select('#contCount').html(contourCount);
+  select('#ptCount').html(points.length);
+
+  // draw sampled points
   fill(255);
   noStroke();
   for (let i = 0; i < points.length; i++){
@@ -118,6 +122,8 @@ function draw(){
 
 // keyboard shortcuts
 function keyPressed(){
+  // ignore shortcuts while typing in the text field
+  if (document.activeElement === select('#textInput').elt) return;
   if (key === 'o' || key === 'O') {
     showOutlines = !showOutlines;
     redraw();
